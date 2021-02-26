@@ -40,7 +40,11 @@ function generateMarkdown(data) {
   # Questions
   If you have any questions, please contact me with following email
   
-  #### ${data.email !== null ? "[" + data.email + "](mailto:" + data.email + ")" : "This user's email is private."}
+  #### ${
+    data.email !== null
+      ? "[" + data.email + "](mailto:" + data.email + ")"
+      : "This user's email is private."
+  }
 `;
 }
 
