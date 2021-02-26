@@ -110,7 +110,7 @@ function init() {
 
         const out = generateMarkdown(data);
 
-        writeToFile("README.md", out);
+        writeToFile("generateMarkdown.md", out);
     });
 }
 
