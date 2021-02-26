@@ -9,13 +9,21 @@ const gnu = "Licensed under the [GNU GPLv3 License](https://spdx.org/licenses/GP
 const mit = "Licensed under the [MIT License](https://spdx.org/licenses/MIT.html).";
 const isc = "Licensed under the [ISC License](https://spdx.org/licenses/ISC.html).";
 
-// TODO: Create an array of questions for user input
-// project questions for inquirer to ask
+// Check whether the user want to have contributor or not
+const yesContributors = "If you would like to contribute to this project, please follow the [Contributor Covenant Code of Conduct](https://www.contributor-covenant.org/version/2/0/code_of_conduct/) guidelines."
+const noContributors = "This project is currently not accepting any contributions."
+
+// project questions for readme generator
 const questions = [
     {
         type: "input",
         name: "title",
         message: "What is the name of your project?"
+    },
+    {
+        type: "input",
+        name: "email",
+        message: "What is your email address?"
     },
     {
         type: "input",
@@ -60,15 +68,51 @@ const questions = [
     }
 ];
 
-// TODO: Create a function to write README file
+// simple function to write file.
 function writeToFile(fileName, data) {
+    fs.writeFile(fileName, data, error => {
+        if (error) {
+            console.log(error);
+        } else {
+            console.log("Readme is generated")
+        }
+    })
 }
 
 // TODO: Create a function to initialize app
 function init() {
+    inquirer.prompt(questions).then(response => {
+        const data = {
+            title: response.title,
+            email: response.email,
+            description: response.description,
+            installation: response.installation,
+            usage: response.usage,
+            tests: response.tests,
+            contributors: response.contributors === "Yes" ? yesContributors : noContributors,
+        }
+
+        // Decision for license
+        switch (response.license) {
+            case "Apache License 2.0":
+                data.license = apache
+                break;
+            case "GNU GPLv3":
+                data.license = gnu
+                break;
+            case "MIT":
+                data.license = mit
+            case "ISC":
+                data.license = isc
+            default:
+                data.license = "None"
+        }
+
+        const out = generateMarkdown(data);
+
+        writeToFile("generateMarkdown.md", out);
+    });
 }
 
 // Function call to initialize app
 init();
-
-inquirer.prompt(questions).then(response => {console.log(response.title)});
