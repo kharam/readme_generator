@@ -20,6 +20,9 @@
     * node index.js
   # Tests
   no
+
+  # demo
+[![asciicast](https://asciinema.org/a/XxOQDAxPrL10d0CqGAlMwCbb6.svg)](https://asciinema.org/a/XxOQDAxPrL10d0CqGAlMwCbb6)
   # License
   Licensed under the [GNU GPLv3 License](https://spdx.org/licenses/GPL-3.0-or-later.html).
   # Contributions
